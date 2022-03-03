@@ -3,39 +3,30 @@ import React from 'react'
 import { useEffect } from "react";
 import { Dimensions } from "react-native";
 import { Text, TouchableOpacity, View, Image, ScrollView, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
-import { startLoading, stopLoading, updatePhotos } from "../../actions";
+import { updatePhotos } from "../../actions";
 
 export const Galary = () =>{
 
-    const win = Dimensions.get('window');
+    const win = Dimensions.get('window')
 
-    const navigation = useNavigation()
+    const navigation = useNavigation<any>()
 
-    const handleNavigationToScren = (url: string, title: string, id: any, thumbnailUrl:string) => {
-        navigation.navigate('GalaryPic', {url, title, id, thumbnailUrl});
+    const handleNavigationToScren = (url:string, title:string, id:number, thumbnailUrl:string) => {
+        navigation.navigate('GalaryPic', {url, title, id, thumbnailUrl})
     }
 
     const dispatch = useDispatch();
 
-    const { photos, isLoading } = useSelector((state) => ({
+    const { photos, isLoading } : any = useSelector<any>((state) => ({
         photos: state.photos,
         isLoading: state.isLoading,
     }));
     
     useEffect(
         () => {
-            dispatch(startLoading())
-            fetch('https://jsonplaceholder.typicode.com/photos/?_limit=50')
-            .then((response)=>{
-                return response.json()
-            })
-            .then((body)=>{
-                dispatch(stopLoading())
-                dispatch(updatePhotos(body))
-            })
+            dispatch(updatePhotos())
         },
         []
     );
@@ -47,7 +38,7 @@ export const Galary = () =>{
                 <ScrollView>
                     <View style={styles.photogrid}>
                     {
-                        photos.map((item)=>{
+                        photos.map((item:{url: string, title: string, id:number, thumbnailUrl:string})=>{
                             return(
                                 <TouchableOpacity 
                                     style={{ margin: 4.5 }} 

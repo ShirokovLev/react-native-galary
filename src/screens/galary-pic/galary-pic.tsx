@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, TouchableOpacity, View, Image, Dimensions, StyleSheet } from "react-native";
 
-import { SafeAreaView } from "react-native-safe-area-context";
 import { addPhotoToFavourites, removePhotoFromFavourites, removePhoto } from "../../actions";
 import SvgHeartIcon from "../../assets/svg/SvgHeartIcon";
 import SvgTrashIcon from "../../assets/svg/SvgTrashIcon";
 
-export const GalaryPic = ({route, navigation}) =>{
+export const GalaryPic = ({route, navigation} : {route:any, navigation:any}) =>{
+
+    console.log()
 
     const win = Dimensions.get('window');
 
@@ -15,11 +16,11 @@ export const GalaryPic = ({route, navigation}) =>{
 
     const dispatch = useDispatch();
 
-    const { favourites } = useSelector((state) => ({
+    const { favourites } = useSelector((state: any) => ({
         favourites: state.favourites
     }));
 
-    const [isFavourite, setFavourite] = useState(favourites.find(item => item.id == id)? true : false)
+    const [isFavourite, setFavourite] = useState<boolean>(favourites.find((item: {id:number}) => item.id === id)? true : false)
 
     const pushToFavourites = ()=> {
         dispatch(addPhotoToFavourites({url: url, title: title, id: id, thumbnailUrl: thumbnailUrl}))

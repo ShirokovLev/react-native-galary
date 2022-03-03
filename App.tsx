@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Navigator } from './src/navigation/navigator';
 import { Provider } from 'react-redux'
-import store from './src/store'
+import store from './src/redux'
 
 export default function App() {
   return (
@@ -21,3 +21,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
